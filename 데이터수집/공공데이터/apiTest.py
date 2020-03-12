@@ -145,7 +145,8 @@ JSON 데이터를 CSV 파일로 변환
 """
 def createCsvFileFromJson( jsonObj ) :
     df = pd.DataFrame(jsonObj)
-    df.to_csv('aptTest.csv', header=True, index=True, encoding='UTF-8')
+    #df.to_csv('aptTest.csv', header=True, index=True, encoding='UTF-8')
+    df.to_csv('aptTest.csv', header=True, index=True, encoding='ms949')
 
 #url = getStrFromAptListInfoRoadUrl( testYn, serviceKey, roadCode, pageNo, numOfRows )          # 아파트목록(도로명)
 #url = getStrFromAptListInfoBjdUrl( testYn, serviceKey, bjdCode, pageNo, numOfRows )            # 아파트목록(법정동)
@@ -153,11 +154,10 @@ def createCsvFileFromJson( jsonObj ) :
 url = getStrFromAptTradeInfoUrl( testYn, serviceKey, pageNo, numOfRows, LAWD_CD, DEAL_YMD )    # 아파트실거래정보
 jsonObj = getJsonFromUrlContent(url)
 
-
 #print(jsonObj['item'])
 
 if ( checkJsonObj(jsonObj) ) :
-    createCsvFileFromJson( jsonObj )    ## JSON to CSV File
+    createCsvFileFromJson( jsonObj['items']['item'] )    ## JSON to CSV File
     for item in jsonObj['items']['item'] :
         print(item)
 else :
